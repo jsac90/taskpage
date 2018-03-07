@@ -42,7 +42,9 @@ mysqli_close($db); // Closing Connection
 <b>Welcome Back, <?php echo "$email"; ?></b>
 <br /> <br />
 
-
+<form action="add.php" method="post">
+<input name="add" type="submit" value="ADD A TASK">
+</form>
 
 <form action="logout.php" method="post">
 <input name="logout" type="submit" value="Log Out">
