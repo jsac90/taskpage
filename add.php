@@ -24,7 +24,7 @@ if (isset($_POST['savetask']) && !EMPTY($_POST['taskname'])){
 	$taskdesc = $_POST['taskdesc'];
 	mysqli_query($db,"INSERT INTO tasks (userid, taskname,createdby,taskdesc) VALUES 
 	('$login_session','$taskname','$login_session','$taskdesc')");
-	$_SESSION['lasterror'] = "Created task $taskname.";
+	$_SESSION['lasterror'] = "Created task \"$taskname\".";
 	header("location: profile.php");
 } elseif (isset($_POST['savetask']) && EMPTY($_POST['taskname'])) {
 	$nameerror = "ERROR - TASK NAME MUST NOT BE NULL";
