@@ -18,6 +18,7 @@ $createdate = $row_total['account_created'];
 $currentlogin = $row_total['last_login'];
 $error = "";
 $date = date('Y-m-d H:i:s');
+$taskname = $task_total['taskname'];
 
 if (!isset($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
 	header("location: tasks.php");
@@ -51,6 +52,34 @@ mysqli_close($db); // Closing Connection
 <form action="logout.php" method="post">
 <input name="logout" type="submit" value="Log Out">
 </form>
+
+<br><BR>
+<?php
+
+
+
+$rows = array();
+while ($row = mysqli_fetch_array($tq)){
+	$rows[] = $row;
+}
+
+foreach ($rows as $row){
+	$taskname = strtoupper($row['taskname']);
+	$created = $row['created'];
+	$taskdesc = $row['taskdesc'];
+	$taskseqnum = $row['taskseqnum'];
+	echo 
+	"<b>Task #$taskseqnum - $taskname</b> <br> 
+	Created on $created.<Br>
+	Description: $taskdesc<br><Br>
+	"; 
+}
+
+$testing = $tt['taskname'];
+echo "$testing"; 
+
+?>
+
 
 </center>
 

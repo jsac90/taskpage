@@ -15,14 +15,9 @@ where a.id = $loginsession
 ;
 ");
 
-$taskquery = mysqli_query($db,"
-select * from
-from tasks a
-where a.userid = $loginsession
-;
-");
 
+$tq = mysqli_query($db, "select * from tasks a where a.userid = $loginsession");
 
 $row_total = mysqli_fetch_assoc($totaluserquery); //gets data from query
-$task_total = mysqli_fetch_assoc($taskquery); //gets data from query
+
 ?>
