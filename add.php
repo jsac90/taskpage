@@ -6,20 +6,31 @@
 <?php 
 
 include 'session.php';
-
+require ('../../config/dbconnect.php');
 session_start(); // Starting Session
+
 
 $login_session = $_SESSION["login_user"];
 $date = date('Y-m-d H:i:s');
 $email = $row_total['email'];
+$nameerror = '';
 
 if (!isset($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
 	header("location: tasks.php");
 };
 
-if (isset($_POST['login_user']) || $_SESSION['login_user'] == ''){
-	header("location: tasks.php");
-};
+if (isset($_POST['savetask']) && !EMPTY($_POST['taskname'])){
+	$taskname = $_POST['taskname'];
+	$taskdesc = $_POST['taskdesc'];
+	mysqli_query($db,"INSERT INTO tasks (userid, taskname,createdby,taskdesc) VALUES 
+	('$login_session','$taskname','$login_session','$taskdesc')");
+	$_SESSION['lasterror'] = "Created task $taskname.";
+	header("location: profile.php");
+} elseif (isset($_POST['savetask']) && EMPTY($_POST['taskname'])) {
+	$nameerror = "ERROR - TASK NAME MUST NOT BE NULL";
+}
+
+
 
 mysqli_close($db); // Closing Connection
 
@@ -32,10 +43,12 @@ mysqli_close($db); // Closing Connection
 <br /> <br />
 <b>YOUR USER ID - <?PHP echo "$login_session" ?></b>
 <br /> <br />
+<h2><font color="red"><?PHP echo "$nameerror" ?></font></h2>
 
-<form action="" method="post">
+<br /> <br />
+<form action="add.php" method="post">
 Task Name <br> <input type="text" name="taskname" /> <BR><bR>
-Task Description <br> <textarea name="DESC" rows="10" cols="30"></textarea><BR><bR>
+Task Description <br> <textarea name="taskdesc" rows="10" cols="30"></textarea><BR><bR>
 Due Date <br> <input type="date" name="duedate" /> <BR><bR>
 
 

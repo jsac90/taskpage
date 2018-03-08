@@ -9,6 +9,8 @@ include 'session.php';
 
 session_start(); // Starting Session
 
+$errormessage = $_SESSION['lasterror'];
+
 $login_session = $_SESSION["login_user"];
 $prevlogin = $_SESSION["prev_login"];
 $email = $row_total['email'];
@@ -52,6 +54,6 @@ mysqli_close($db); // Closing Connection
 
 </center>
 
-
+<?php unset($_SESSION['lasterror']); ?>
 </body>
 </html>
