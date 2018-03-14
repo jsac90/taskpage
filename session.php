@@ -16,7 +16,7 @@ where a.id = $loginsession
 ");
 
 
-$tq = mysqli_query($db, "select * from tasks a where a.userid = $loginsession");
+$tq = mysqli_query($db, "select * from tasks a where a.userid = $loginsession order by isnull(duedate) asc, duedate asc");
 
 $row_total = mysqli_fetch_assoc($totaluserquery); //gets data from query
 

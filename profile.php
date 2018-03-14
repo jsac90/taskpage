@@ -19,6 +19,7 @@ $currentlogin = $row_total['last_login'];
 $error = "";
 $date = date('Y-m-d H:i:s');
 $taskname = $task_total['taskname'];
+$taskcount = mysqli_num_rows($tq);
 
 if (!isset($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
 	header("location: tasks.php");
@@ -42,8 +43,9 @@ mysqli_close($db); // Closing Connection
 <br />
 <h2><font color="red"><?php echo "$error"; ?></font></h2>
 <br /> <br />
-<b>Welcome Back, <?php echo "$email"; ?></b>
+<h2>Welcome Back, <?php echo "$email"; ?></h2>
 <br /> <br />
+You currently have <b><?php echo "$taskcount"; ?></b> open tasks! <br><br>
 
 <form action="add.php" method="post">
 <input name="add" type="submit" value="ADD A TASK">
@@ -64,19 +66,33 @@ while ($row = mysqli_fetch_array($tq)){
 }
 
 foreach ($rows as $row){
+	
 	$taskname = strtoupper($row['taskname']);
 	$created = $row['created'];
 	$taskdesc = $row['taskdesc'];
 	$taskseqnum = $row['taskseqnum'];
+	if (empty($row['duedate'])){
+		$taskduedate = 'None!';
+	} else {
+		$taskduedate = $row['duedate'];
+	}
 	echo 
-	"<b>Task #$taskseqnum - $taskname</b> <br> 
-	Created on $created.<Br>
-	Description: $taskdesc<br><Br>
+	"
+	<b>$taskname</b> <br> 
+	Due Date: $taskduedate <br>
+	Created on $created.<Br><br>
+	Description: <br>$taskdesc<br><br>
+	
 	"; 
-}
+	
+?>
 
-$testing = $tt['taskname'];
-echo "$testing"; 
+<a href="delete.php?taskseqnum=<?php echo "$taskseqnum";?>"> delete this task </a>
+
+<?php
+
+echo"<br><br>---------------------------------------------------------------------<br><Br>";
+}
 
 ?>
 
