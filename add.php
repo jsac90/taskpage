@@ -22,14 +22,21 @@ if (!isset($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
 if (isset($_POST['savetask']) && !EMPTY($_POST['taskname'])){
 	$taskname = $_POST['taskname'];
 	$taskdesc = $_POST['taskdesc'];
-	mysqli_query($db,"INSERT INTO tasks (userid, taskname,createdby,taskdesc) VALUES 
-	('$login_session','$taskname','$login_session','$taskdesc')");
+	$duedate = $_POST['duedate'];
+	IF (EMPTY ($duedate)) {
+		$sqldate = 'NULL';
+	} ELSE {
+		$sqldate="'".date("Y-m-d H:i:s",strtotime($duedate))."'";
+	}
+
+	mysqli_query($db,"INSERT INTO tasks (userid, taskname,createdby,taskdesc,duedate) VALUES 
+	('$login_session','$taskname','$login_session','$taskdesc',$sqldate)");
 	$_SESSION['lasterror'] = "Created task \"$taskname\".";
+	//$_SESSION['lasterror'] = "$duedate"; //used this for testing the date 
 	header("location: profile.php");
 } elseif (isset($_POST['savetask']) && EMPTY($_POST['taskname'])) {
 	$nameerror = "ERROR - TASK NAME MUST NOT BE NULL";
 }
-
 
 
 mysqli_close($db); // Closing Connection
@@ -49,7 +56,7 @@ mysqli_close($db); // Closing Connection
 <form action="add.php" method="post">
 Task Name <br> <input type="text" name="taskname" /> <BR><bR>
 Task Description <br> <textarea name="taskdesc" rows="10" cols="30"></textarea><BR><bR>
-Due Date <br> <input type="date" name="duedate" /> <BR><bR>
+Due Date <br> <input type="date" name="duedate" placeholder="date" /> <BR><bR>
 
 
 <br><Br>
