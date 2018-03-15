@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `tasks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tasks` (
+  `taskseqnum` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
   `taskname` varchar(45) DEFAULT NULL,
   `taskdesc` longtext,
@@ -31,8 +32,11 @@ CREATE TABLE `tasks` (
   `ongoing_flag` varchar(1) DEFAULT NULL,
   `createdby` int(11) NOT NULL,
   `assignedto` int(11) DEFAULT NULL,
-  PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `lastupdt` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_complete` varchar(2) DEFAULT NULL,
+  `updateby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`taskseqnum`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +53,7 @@ CREATE TABLE `users` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -61,4 +65,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-07  1:03:45
+-- Dump completed on 2018-03-15  2:45:38
