@@ -110,7 +110,7 @@ foreach ($rows as $row){
 	"; 
 	
 ?>
-
+<a href="edit.php?taskseqnum=<?php echo "$taskseqnum";?>"> edit this task </a> <br>
 <a href="delete.php?taskseqnum=<?php echo "$taskseqnum";?>"> delete this task </a>
 
 <?php
