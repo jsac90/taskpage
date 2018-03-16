@@ -40,7 +40,7 @@ if ((!isset($_SESSION['login_user']) || $_SESSION['login_user'] == '') && !isset
 	header("location: tasks.php");
 };
 
-
+$errormessage = $_SESSION['lasterror'];
 
 if(isset($errormessage)){
 	$error = $errormessage;
