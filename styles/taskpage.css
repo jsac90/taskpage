@@ -48,6 +48,17 @@ input[type=password], select {
     box-sizing: border-box;
 
 }
+input[type=date], select {
+	text-align: center;
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
 textarea, select {
 	text-align: center;
     width: 30%;
@@ -78,6 +89,24 @@ input[type=submit]:hover {
 	-moz-appearance: none;
 	appearance: none;
 }
+a { 
+text-decoration: underline; 
+color:blue;
+}
+a:visited {text-decoration: none;}
+}
+
+button {
+    background-color: #0066ff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
 @media (max-width:400px) {
@@ -122,6 +151,16 @@ input[type=password], select {
     box-sizing: border-box;
     text-align: center;
 }
+input[type=date], select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
 textarea, select {
     width: 80%;
     padding: 12px 20px;
@@ -152,4 +191,6 @@ input[type=submit]:hover {
 	-moz-appearance: none;
 	appearance: none;
 }
+a { text-decoration: underline; color:blue;}
+a:visited {text-decoration: none;}
 }
