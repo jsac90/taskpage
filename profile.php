@@ -87,7 +87,7 @@ foreach ($rows as $row){
 	
 	$taskname = strtoupper($row['taskname']);
 	$created = $row['created'];
-	$taskdesc = $row['taskdesc'];
+	$taskdesc = nl2br($row['taskdesc']);
 	$taskseqnum = $row['taskseqnum'];
 	if (empty($row['duedate'])){
 		$taskduedate = 'None!';
@@ -119,7 +119,7 @@ foreach ($rows as $row){
 
 <?php
 
-echo"<br><br>---------------------------------------------------------------------<br><Br>";
+echo"<br><br>------------------------------------------------------------------<br><Br>";
 }
 
 ?>
