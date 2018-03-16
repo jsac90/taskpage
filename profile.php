@@ -103,7 +103,7 @@ foreach ($rows as $row){
 	} elseif (empty($row['duedate'])){
 		$taskname = '<FONT COLOR=#06a837>'.$taskname.'</FONT>';
 	}
-
+	
 	echo 
 	"
 	<b>$taskname</b> <br> 
@@ -118,6 +118,8 @@ foreach ($rows as $row){
 <a href="delete.php?taskseqnum=<?php echo "$taskseqnum";?>"> <button type="button">DELETE</button></a>
 
 <?php
+
+echo"<br><br>---------------------------------------------------------------------<br><Br>";
 }
 
 ?>
