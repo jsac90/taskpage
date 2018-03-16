@@ -7,10 +7,12 @@
 
 include 'session.php';
 
+if(isset($_COOKIE['jstaskpagelogin'])){
+	$_SESSION["login_user"] = $_COOKIE['jstaskpagelogin'];
+}
+
 session_start(); // Starting Session
-
-$errormessage = $_SESSION['lasterror'];
-
+$cookie = $_COOKIE['jstaskpagelogin'];
 $login_session = $_SESSION["login_user"];
 $prevlogin = $_SESSION["prev_login"];
 $email = $row_total['email'];
@@ -34,9 +36,11 @@ if ($pastduecount == 1){
 	$pastduesentence = "$pastduecount TASKS ARE PAST DUE!";
 }
 
-if (!isset($_SESSION['login_user']) || $_SESSION['login_user'] == ''){
+if ((!isset($_SESSION['login_user']) || $_SESSION['login_user'] == '') && !isset($_COOKIE['jstaskpagelogin'])){
 	header("location: tasks.php");
 };
+
+
 
 if(isset($errormessage)){
 	$error = $errormessage;
@@ -99,7 +103,7 @@ foreach ($rows as $row){
 	} elseif (empty($row['duedate'])){
 		$taskname = '<FONT COLOR=#06a837>'.$taskname.'</FONT>';
 	}
-	
+
 	echo 
 	"
 	<b>$taskname</b> <br> 
@@ -110,12 +114,10 @@ foreach ($rows as $row){
 	"; 
 	
 ?>
-<a href="edit.php?taskseqnum=<?php echo "$taskseqnum";?>"> edit this task </a> <br>
-<a href="delete.php?taskseqnum=<?php echo "$taskseqnum";?>"> delete this task </a>
+<a href="edit.php?taskseqnum=<?php echo "$taskseqnum";?>"><button type="button">EDIT</button></a> &nbsp &nbsp
+<a href="delete.php?taskseqnum=<?php echo "$taskseqnum";?>"> <button type="button">DELETE</button></a>
 
 <?php
-
-echo"<br><br>---------------------------------------------------------------------<br><Br>";
 }
 
 ?>

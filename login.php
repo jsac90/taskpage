@@ -30,10 +30,13 @@ else
 			$lastlogin = "RIGHT NOW LOL";
 		};
 		
+
+		
 		//AUTHENTICATE USER - make sure password is correct
 		if(password_verify($password, $oldpass)){
 			$_SESSION["login_user"]="$userid"; // Initializing Session
 			$_SESSION["prev_login"]="$lastlogin";
+			setcookie("jstaskpagelogin", "$userid", time() + (86400 * 30), "/");
 			mysqli_query($db,"update users set last_login = NOW() WHERE id = '$userid'"); //set last login
 			$_SESSION['fullrecord'] = mysqli_fetch_assoc($query);
 			header("location: profile.php"); // Redirecting To Other Page

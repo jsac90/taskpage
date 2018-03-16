@@ -10,9 +10,23 @@ include('login.php'); // Includes Login Script
 
 
 //this section will automatically redirect the user to their profile if they are logged in. :-)
+
+if(isset($_COOKIE['jstaskpagelogin'])){
+	$_SESSION['login_user'] = $_COOKIE['jstaskpagelogin'];
+	header("location: profile.php");
+}
+
 if(isset($_SESSION['login_user'])){
 header("location: profile.php");
 }
+
+
+
+
+//if you need to be able to create an account add the following back to the form above the error:
+
+//<input name="create" type="submit" value="Create Account">
+//<br /><br />
 ?>
 
 </head>
@@ -30,8 +44,6 @@ header("location: profile.php");
 <br /> <br />
 <input name="submit" type="submit" value="Log In">
 <br /> <br />
-<input name="create" type="submit" value="Create Account">
-<br /><br />
 <font color="red"><?php echo $error; ?></font>
 </form>
 
