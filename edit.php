@@ -26,7 +26,13 @@ $oldquery = mysqli_query($db,"select * from tasks where userid = $login_session 
 $old_total = mysqli_fetch_assoc($oldquery); 
 $oldtaskname = $old_total['taskname'];
 $oldtaskdesc = $old_total['taskdesc'];
-$oldduedate = date('Y-m-d',strtotime($old_total["duedate"]));
+$rawoldduedate = $old_total["duedate"];
+
+IF (EMPTY($rawoldduedate)) {
+		$oldduedate = 'NULL';
+	} ELSE {
+		$oldduedate = date('Y-m-d',strtotime($old_total["duedate"]));
+	}
 
 //code to update values in table with new values
 if (isset($_POST['updatetask']) && !EMPTY($_POST['taskname'])){
@@ -35,11 +41,13 @@ if (isset($_POST['updatetask']) && !EMPTY($_POST['taskname'])){
 	$duedate = $_POST['duedate'];
 	//have to pull the var from post because everything is terrible
 	$edittask2 = $_POST['posttaskseqnum'];
-	IF (EMPTY ($duedate)) {
+	
+	IF (EMPTY($rawoldduedate)) {
 		$sqldate = 'NULL';
 	} ELSE {
 		$sqldate="'".date("Y-m-d H:i:s",strtotime($duedate))."'";
 	}
+	
 	$ff = mysqli_query($db,"UPDATE tasks 
 	SET taskname = '$taskname',
 		taskdesc = '$taskdesc',

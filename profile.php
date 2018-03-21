@@ -57,9 +57,10 @@ mysqli_close($db); // Closing Connection
 </head>
 <body>
 <center>
-<br />
+<?php if(isset($error)){ ?>
+<br>
 <h2><font color="red"><?php echo "$error"; ?></font></h2>
-<br /> <br />
+<br /> <?php } ?>
 <h2>Welcome Back, <?php echo "$email"; ?></h2>
 <br /> <br />
 You currently have <b><?php echo "$taskcount"; ?></b> open tasks! <BR>
@@ -86,13 +87,13 @@ while ($row = mysqli_fetch_array($tq)){
 foreach ($rows as $row){
 	
 	$taskname = strtoupper($row['taskname']);
-	$created = $row['created'];
+	$created = date('m/d/Y',strtotime($row['created']));
 	$taskdesc = nl2br($row['taskdesc']);
 	$taskseqnum = $row['taskseqnum'];
 	if (empty($row['duedate'])){
 		$taskduedate = 'None!';
 	} else {
-		$taskduedate = $row['duedate'];
+		$taskduedate = date('m/d/Y',strtotime($row['duedate']));
 	}
 	$daysuntildue = $row['diff'];
 	
@@ -102,6 +103,7 @@ foreach ($rows as $row){
 		$taskname = '<FONT COLOR=ORANGE>'.$taskname.'</FONT>';
 	} elseif (empty($row['duedate'])){
 		$taskname = '<FONT COLOR=#06a837>'.$taskname.'</FONT>';
+		$daysuntildue = "INFINITY!!!!!";
 	}
 	
 	echo 
